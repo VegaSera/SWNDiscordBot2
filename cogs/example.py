@@ -6,11 +6,13 @@ class Example(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.hidden = True
+        self.short_desc = "Assortment of testing functions"
+        self.full_desc = ""
 
     #Events
     @commands.Cog.listener()
     async def on_ready(self):
-        print("AVIONICS BOT LOADED AND READY TO BEGIN THE FUCKMAKING")
+        print("AVIONICS BOT LOADED")
 
     #Commands
     @commands.command()

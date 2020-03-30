@@ -4,20 +4,26 @@ from cogs.character.character_tables import bgtables
 from cogs.character.character_gen import Character
 from cogs.utils.ToolUtils import normalize_message
 
-class Rollcharacter(commands.Cog):
-    """Randomly generates a level 1 SWN Character"""
+class Random(commands.Cog):
+    """A suite of random generators for SWN."""
     def __init__(self, client):
         self.hidden = False
         self.client = client
+        self.short_desc = "A suite of random generators for SWN."
+        self.full_desc = ""
 
     @commands.command()
     async def rollcharacter(self, ctx, *message):
-        """Roll Character Command"""
+        """`!rollcharacter` - Generates a random level 1 SWN Character"""
 
         #A normalized message in lower case to compare to easier.
         norm = normalize_message(message)
 
+        # In depth help message
+        #TODO Rollcharacter Help Message
+
         # Setting our seed
+        #TODO Set character seed
 
         #Setting up our stat_type
         if "udb" in norm or "4d6d1" in norm:
@@ -50,7 +56,40 @@ class Rollcharacter(commands.Cog):
 
 
 
+
+
         new_char = Character(stat_roll_type=stat_type, char_class=class_type)
 
+    @commands.command()
+    async def rollplanet(self, ctx, *message):
+        """Rolls a random planet"""
+        # TODO Random Planet
+        pass
+
+    @commands.command()
+    async def rollship(self, ctx, *message):
+        """Rolls a random ship"""
+        # TODO Random Ship
+        pass
+
+    @commands.command()
+    async def shipnames(self, ctx, *message):
+        """Rolls a random ship"""
+        # TODO Random Ship Names
+        pass
+
+    @commands.command()
+    async def rollrace(self, ctx, *message):
+        """Rolls a random alien race"""
+        # TODO Random Race
+        pass
+
+    @commands.command()
+    async def quick(self, ctx, *message):
+        """Rolls a random NPC/Patron/Encounter"""
+        # TODO Quick tables
+        pass
+
+
 def setup(client):
-    client.add_cog(Rollcharacter(client))
+    client.add_cog(Random(client))

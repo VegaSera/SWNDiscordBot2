@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 
+#TODO Allow help to be case insensitive, so .help random and .help Random return the same thing
+
+#TODO Change function from working on the docstring to working from the short_desc and full_desc attributes
 
 class Help(commands.Cog):
     """General Help Description"""
@@ -8,9 +11,11 @@ class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.hidden = False
+        self.short_desc = "A help function"
+        self.full_desc = ""
         print(self.client.embed_color)
 
-    @commands.command()
+    @commands.command(aliases='halp')
     # @commands.has_permissions(add_reactions=True,embed_links=True)
     async def help(self, ctx, *cog):
         """Gets all cogs and commands of mine."""
