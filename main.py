@@ -27,14 +27,34 @@ async def reload(ctx, extension):
     client.unload_extension(f"cogs.{extension}")
     client.load_extension(f"cogs.{extension}")
 
-
 client.remove_command('help')
-
-
 
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
 
-print(TOKEN)
+
+async def print_action(message):
+    """Listener function to print useful information to us as people are using the bot, even in whispers"""
+    if message.author == client.user:
+        pass
+    else:
+        print(message.created_at, "-- Messaged by:", message.author, "-- Guild:", message.guild,
+              "-- Message Channel:", message.channel, "-- Message content:", message.content)
+
+
+client.add_listener(print_action, 'on_message')
+
+
+@client.event
+async def on_ready():
+    print('Logged in as')
+    print(client.user.name)
+    print(client.user.id)
+    # print("DO NOT PUSH WITH THIS VISIBLE - TOKEN: ", TOKEN)
+    print('Discord version: ' + str(discord.__version__))
+    print('------')
+    await client.change_presence(status=discord.Status.online, activity=discord.Game(name='#bot-commands | !help'))
+
+
 client.run(TOKEN)

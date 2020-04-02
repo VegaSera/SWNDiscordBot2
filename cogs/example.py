@@ -12,7 +12,8 @@ class Example(commands.Cog):
     #Events
     @commands.Cog.listener()
     async def on_ready(self):
-        print("AVIONICS BOT LOADED")
+        #print("AVIONICS BOT LOADED")
+        pass
 
     #Commands
     @commands.command()

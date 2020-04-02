@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 
 class Easter_Eggs(commands.Cog):
     """Congratulations, you looked at the source code and found some easter
@@ -28,9 +29,13 @@ class Easter_Eggs(commands.Cog):
         pass
 
     @commands.command()
-    async def smack(self, ctx, *message):
+    async def smack(self, ctx):
         """Bot will smack the tagged person"""
-        # TODO Smack a hoe
+        mess = ctx.content.split(' ', 1)[1]
+        smack = discord.Embed(color=self.client.embed_color)
+        smack.add_field(name="You have made someone very upset...",
+                        value=f"*{mess} has been smacked by a robot hand!*")
+        await ctx.channel.send(embed=smack)
         pass
 
 

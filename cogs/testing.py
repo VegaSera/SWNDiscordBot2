@@ -6,7 +6,7 @@ class Test(commands.Cog):
         self.client = client
         self.hidden = True
         self.short_desc = "Assortment of testing functions"
-        self.full_desc = ""
+        self.full_desc = "TODO Full Description"
 
     @commands.command()
     async def test(self, ctx):
