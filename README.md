@@ -1,11 +1,11 @@
-#Stars Without Number Discord Bot
+# Stars Without Number Discord Bot
 
 A rewrite of everyone's favorite bot on the Stars Without Number community discord.
 
-If you want to host this for your own server, feel free.
+If you want to host this for your own server, you agree to use it under the MIT license.
 
 Step 0 - Requirements
-* Python 3.7
+* Python 3.7 or better
 * A discord bot account set up.
 
 Step 1 - Download the repository
