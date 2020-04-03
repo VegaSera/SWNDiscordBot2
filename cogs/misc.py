@@ -3,7 +3,6 @@ import discord
 import platform
 
 
-
 class Misc(commands.Cog):
     """Commands related to the Dice rolling function"""
     def __init__(self, client):
@@ -11,7 +10,6 @@ class Misc(commands.Cog):
         self.hidden = False
         self.short_desc = "Miscellaneous bot commands that don't fit anywhere else"
         self.full_desc = "A resting place for commands that don't fit anywhere else."
-
 
     @commands.command(aliases=['avionics'])
     async def about(self, ctx):
@@ -22,7 +20,8 @@ class Misc(commands.Cog):
                                           "Below you'll find a number of frequently asked questions.")
         embed.add_field(
             name='What is the bot written in?',
-            value=f"Currently running on:\nPython version: {platform.python_version()}\nDiscord Version: {str(discord.__version__)}",
+            value=f"Currently running on:\nPython version: {platform.python_version()}\n"
+                  f"Discord Version: {str(discord.__version__)}",
             inline=False)
         embed.add_field(
             name='Why AVIONICS? What does that mean?',
@@ -37,8 +36,6 @@ class Misc(commands.Cog):
             name='Is your code up on Github or somewhere else that I can look at it?',
             value=f"Yes it is. Type `{self.client.command_prefix}github` and try not to judge me too hard.",
             inline=False)
-
-
         await ctx.channel.send(embed=embed)
 
     @commands.command()
@@ -58,8 +55,20 @@ class Misc(commands.Cog):
 
     @commands.command(hidden=True)
     async def github(self, ctx):
-        """Gives a link to view the bot's source code on Github"""
-        # TODO Link to this bots repo on Github
+        embed = discord.Embed(title="This Bot on Github",
+                              color=self.client.embed_color,
+                              description='https://github.com/VegaSera/SWNDiscordBot2/')
+        embed.set_footer(text="Please do not judge me too hard. I'm just a boy. A 3X year old boy.")
+        await ctx.channel.send(embed=embed)
+
+    @commands.command()
+    async def abnegation(self):
+        """Gives a link to the Revised version of the Abnegation discipline"""
+        pass
+
+    @commands.command()
+    async def teratogenics(self):
+        """Gives a link to the Revised version of the Teratogenics discipline"""
         pass
 
 

@@ -1,5 +1,6 @@
 import random
 import cogs.utils.general_tables as tables
+from cogs.utils.word_tables import nountable, NormalAdjTable, SillyAdjTable
 
 
 def diceroller(num: int, sides: int, mod=0, verbose=False):
@@ -30,8 +31,15 @@ def random_seed_setter():
     """
     random_seed = ""
     random.seed()  # Makes sure we don't have another seed influencing this.
-    for i in range(random.randint(5, 15)):
-        random_seed += random.choice(tables.SeedDigits)
+
+    # Old seed generation
+    # for i in range(random.randint(5, 15)):
+    #     random_seed += random.choice(tables.SeedDigits)
+
+    #Multiplying the adjectives to make it roughly equal with the nouns.
+    first_word = random.choice(nountable + (SillyAdjTable*6) + (NormalAdjTable*6))
+    second_word = random.choice(nountable)
+    random_seed = f"{first_word}{second_word}"
     return random_seed
 
 
@@ -42,7 +50,6 @@ def normalize_message(message):
     for index, i in enumerate(message):
         i = i.lower()
         message[index] = i
-        print(i)
     return message
 
 
@@ -79,6 +86,8 @@ def random_namer(min_len, max_len, lang="all"):
         name += random.choice(table)
     return name.title()
 
-
+if __name__ == '__main__':
+    for i in range(10):
+        print(random_seed_setter())
 
 

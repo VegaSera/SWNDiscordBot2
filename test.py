@@ -48,11 +48,22 @@ newchar = char()
 
 #newchar.raise_stat()
 
-print(newchar.cha)
-newchar.raise_stat()
-print(newchar.cha)
+# print(newchar.cha)
+# newchar.raise_stat()
+# print(newchar.cha)
+#
+# class_type = None
+# list(class_type)
+# print(class_type, type(class_type))
 
-class_type = None
-list(class_type)
-print(class_type, type(class_type))
+listthing = [0, 1, 2, 3, 4, 5]
+
+for i in listthing:
+    if i == 2:
+        listthing.append(1)
+    elif i == 1:
+        print("I FOUND A ONE! HOPEFULLY I'LL FIND ANOTHER")
+    elif i == 3:
+        listthing.remove(i)
+print(listthing)
 

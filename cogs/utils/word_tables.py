@@ -205,14 +205,59 @@ nountable = ['Time', 'Year', 'People', 'Way', 'Man', 'Day', 'Thing', 'Child', 'G
              'Boom', 'Bronze', 'Brush', 'Bush', 'Cab', 'Casualty', 'Clay', 'Constituent', 'Contest', 'Counterpart',
              'Deck', 'Diamond', 'Disappointment', 'Dismissal', 'Engagement', 'Exclusion', 'Execution']
 
+SillyAdjTable = ['Adamant', 'Adroit', 'Amatory', 'Animistic', 'Antic', 'Arcadian', 'Baleful', 'Bellicose', 'Bilious', 'Boorish',
+              'Calamitous', 'Caustic', 'Cerulean', 'Comely', 'Concomitant', 'Contumacious', 'Corpulent', 'Crapulous', 'Defamatory',
+              'Didatic', 'Dilatory', 'Dowdy', 'Efficacious', 'Effulgent', 'Egregious', 'Endemic', 'Equanimous', 'Execrable',
+              'Fastidious', 'Feckless', 'Fecund', 'Friable', 'Fulsome', 'Garrulous', 'Guileless', 'Gustatory', 'Heuristic',
+              'Histronic', 'Hubristic', 'Incendiary', 'Insidious', 'Insolent', 'Intransigent', 'Inveterate', 'Invidious',
+              'Irksome', 'Jejune', 'Jocular', 'Judicious', 'Lachrymose', 'Limpid', 'Loquacious', 'Luminous', 'Mannered',
+              'Mendacious', 'Meretricious', 'Minatory', 'Mordant', 'Munificent', 'Nefarious', 'Noxious', 'Obtuse', 'Parsimonious',
+              'Pendulous', 'Pernicious', 'Pervasive', 'Petulant', 'Platitudinous', 'Precipitate', 'Propitious', 'Puckish',
+              'Querulous', 'Quiescent', 'Rebarbative', 'Recalcitrant', 'Redolent', 'Rhadamanthine', 'Risible', 'Ruminative',
+              'Sagacious', 'Salubrious', 'Sartorial', 'Sclerotic', 'Serpentine', 'Spasmodic', 'Strident', 'Taciturn',
+              'Tenacious', 'Tremulous', 'Trenchant', 'Turbulent', 'Turgid', 'Ubiquitous', 'Uxorious', 'Verdant', 'Voluble',
+              'Voracious', 'Wheedling', 'Withering', 'Zealous']
+
+NormalAdjTable = ['Adorable', 'Adventurous', 'Aggressive', 'Agreeable', 'Alert', 'Alive', 'Amused', 'Angry', 'Annoyed',
+                  'Annoying', 'Anxious', 'Arrogant', 'Ashamed', 'Attractive', 'Average', 'Awful', 'Bad', 'Beautiful',
+                  'Better', 'Bewildered', 'Black', 'Bloody', 'Blue', 'Blue-eyed', 'Blushing', 'Bored', 'Brainy',
+                  'Brave', 'Breakable', 'Bright', 'Busy', 'Calm', 'Careful', 'Cautious', 'Charming', 'Cheerful',
+                  'Clean', 'Clear', 'Clever', 'Cloudy', 'Clumsy', 'Colorful', 'Combative', 'Comfortable', 'Concerned',
+                  'Condemned', 'Confused', 'Cooperative', 'Courageous', 'Crazy', 'Creepy', 'Crowded', 'Cruel',
+                  'Curious', 'Cute', 'Dangerous', 'Dark', 'Dead', 'Defeated', 'Defiant', 'Delightful', 'Depressed',
+                  'Determined', 'Different', 'Difficult', 'Disgusted', 'Distinct', 'Disturbed', 'Dizzy', 'Doubtful',
+                  'Drab', 'Dull', 'Eager', 'Easy', 'Elated', 'Elegant', 'Embarrassed', 'Enchanting', 'Encouraging',
+                  'Energetic', 'Enthusiastic', 'Envious', 'Evil', 'Excited', 'Expensive', 'Exuberant', 'Fair',
+                  'Faithful', 'Famous', 'Fancy', 'Fantastic', 'Fierce', 'Filthy', 'Fine', 'Foolish', 'Fragile', 'Frail',
+                  'Frantic', 'Friendly', 'Frightened', 'Funny', 'Gentle', 'Gifted', 'Glamorous', 'Gleaming', 'Glorious',
+                  'Good', 'Gorgeous', 'Graceful', 'Grieving', 'Grotesque', 'Grumpy', 'Handsome', 'Happy', 'Healthy',
+                  'Helpful', 'Helpless', 'Hilarious', 'Homeless', 'Homely', 'Horrible', 'Hungry', 'Hurt', 'Ill',
+                  'Important', 'Impossible', 'Inexpensive', 'Innocent', 'Inquisitive', 'Itchy', 'Jealous', 'Jittery',
+                  'Jolly', 'Joyous', 'Kind', 'Lazy', 'Light', 'Lively', 'Lonely', 'Long', 'Lovely', 'Lucky',
+                  'Magnificent', 'Misty', 'Modern', 'Motionless', 'Muddy', 'Mushy', 'Mysterious', 'Nasty', 'Naughty',
+                  'Nervous', 'Nice', 'Nutty', 'Obedient', 'Obnoxious', 'Odd', 'Old-fashioned', 'Open', 'Outrageous',
+                  'Outstanding', 'Panicky', 'Perfect', 'Plain', 'Pleasant', 'Poised', 'Poor', 'Powerful', 'Precious',
+                  'Prickly', 'Proud', 'Putrid', 'Puzzled', 'Quaint', 'Real', 'Relieved', 'Repulsive', 'Rich', 'Scary',
+                  'Selfish', 'Shiny', 'Shy', 'Silly', 'Sleepy', 'Smiling', 'Smoggy', 'Sore', 'Sparkling', 'Splendid',
+                  'Spotless', 'Stormy', 'Strange', 'Stupid', 'Successful', 'Super', 'Talented', 'Tame', 'Tasty',
+                  'Tender', 'Tense', 'Terrible', 'Thankful', 'Thoughtful', 'Thoughtless', 'Tired', 'Tough', 'Troubled',
+                  'Ugliest', 'Ugly', 'Uninterested', 'Unsightly', 'Unusual', 'Upset', 'Uptight', 'Vast', 'Victorious',
+                  'Vivacious', 'Wandering', 'Weary', 'Wicked', 'Wide-eyed', 'Wild', 'Witty', 'Worried', 'Worrisome',
+                  'Wrong', 'Zany', 'Zealous']
+
+
 import random
 
 if __name__ == '__main__':
 
-    def ChooseWord():
+    def ChooseNoun():
         return random.choice(nountable)
 
+    def ChooseAdj():
+        return random.choice(SillyAdjTable + NormalAdjTable)
+
     print("Length of nountable -", len(nountable))
+    print("Number of Adjectives - ", len(SillyAdjTable + NormalAdjTable))
 
     for i in range(25):
-        print("The", ChooseWord(), f"of {ChooseWord()}s")
+        print(f"The {ChooseAdj()} {ChooseNoun()} of {ChooseNoun()}s")

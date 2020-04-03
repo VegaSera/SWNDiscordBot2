@@ -48,3 +48,51 @@ bgtables = {'Barbarian': ('Survive', ('+1 Any Stat', '+2 Physical', '+2 Physical
             'Worker': ('Work', ('+1 Any Stat', '+1 Any Stat', '+1 Any Stat', '+1 Any Stat', 'Exert', 'Any Skill'),
                        ('Administer', 'Any Skill', 'Connect', 'Exert', 'Fix', 'Pilot', 'Program', 'Work'))
             }
+
+foci = ['Alert', 'Armsman', 'Assassin', 'Authority', 'Close Combatant', 'Connected', 'Die Hard', 'Diplomat',
+           'Gunslinger', 'Hacker', 'Healer', 'Henchkeeper', 'Ironhide', 'Savage Fray', 'Shocking Assault', 'Sniper',
+           'Specialist', 'Star Captain', 'Starfarer', 'Tinker', 'Unarmed Combatant', 'Wanderer']
+
+psyfoci = ['Alert', 'Armsman', 'Assassin', 'Authority', 'Close Combatant', 'Connected', 'Die Hard', 'Diplomat',
+           'Gunslinger', 'Hacker', 'Healer', 'Henchkeeper', 'Ironhide', 'Savage Fray', 'Shocking Assault', 'Sniper',
+           'Specialist', 'Star Captain', 'Starfarer', 'Tinker', 'Unarmed Combatant', 'Wanderer', 'Psychic Training']
+
+nonpsyfoci = ['Alert', 'Armsman', 'Assassin', 'Authority', 'Close Combatant', 'Connected', 'Die Hard', 'Diplomat',
+           'Gunslinger', 'Hacker', 'Healer', 'Henchkeeper', 'Ironhide', 'Savage Fray', 'Shocking Assault', 'Sniper',
+           'Specialist', 'Star Captain', 'Starfarer', 'Tinker', 'Unarmed Combatant', 'Wanderer', 'Wild Psychic Talent']
+
+allfoci = ['Alert', 'Armsman', 'Assassin', 'Authority', 'Close Combatant', 'Connected', 'Die Hard', 'Diplomat',
+           'Gunslinger', 'Hacker', 'Healer', 'Henchkeeper', 'Ironhide', 'Savage Fray', 'Shocking Assault', 'Sniper',
+           'Specialist', 'Star Captain', 'Starfarer', 'Tinker', 'Unarmed Combatant', 'Wanderer', 'Psychic Training',
+              'Wild Psychic Talent', 'Unique Gift']
+
+combatfoci = ['Armsman', 'Assassin', 'Close Combatant', 'Die Hard', 'Gunslinger', 'Savage Fray', 'Shocking Assault', 'Sniper',
+               'Unarmed Combatant']
+
+FociList = {'Alert': 'Notice',
+            'Armsman': 'Stab',
+            'Assassin': 'Sneak',
+            'Authority': 'Lead',
+            'Close Combatant': 'Any Combat',
+            'Connected': 'Connect',
+            'Die Hard': '',
+            'Diplomat': 'Talk',
+            'Gunslinger': 'Shoot',
+            'Hacker': 'Program',
+            'Healer': 'Heal',
+            'Henchkeeper': 'Lead',
+            'Ironhide': '',
+            'Savage Fray': 'Stab',
+            'Shocking Assault': 'Stab',
+            'Sniper': 'Shoot',
+            'Specialist': 'Any Skill',
+            'Star Captain': 'Lead',
+            'Starfarer': 'Pilot',
+            'Tinker': 'Fix',
+            'Unarmed Combatant': 'Punch',
+            'Wanderer': 'Survive',
+            'Psychic Training': 'Any Psychic',
+            'Wild Psychic Talent': ''}
+
+skillTable = ['Administer', 'Connect', 'Exert', 'Fix', 'Heal', 'Know', 'Lead', 'Notice', 'Perform', 'Pilot',
+                  'Program', 'Punch', 'Shoot', 'Sneak', 'Stab', 'Survive', 'Talk', 'Trade', 'Work']
