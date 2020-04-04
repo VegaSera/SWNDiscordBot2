@@ -4,14 +4,7 @@ from cogs.utils.word_tables import nountable, NormalAdjTable, SillyAdjTable
 
 
 def diceroller(num: int, sides: int, mod=0, verbose=False):
-    """Rolls a simple die. For easy 1:1 translation from tabletop to program.
-
-    :param num: - Number of dice to roll
-    :param sides: - Number of sides on the dice
-    :param mod: - Static modifier to add to the result. Default 0 if no modifier is specified.
-    :param verbose: - If true, returns a list of individual die results. Default False
-    :return: - Returns the result
-    """
+    """Rolls a simple die. For easy 1:1 translation from tabletop to program."""
     die_results = []
     total = 0
     for i in range(num):

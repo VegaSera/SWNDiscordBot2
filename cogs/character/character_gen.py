@@ -24,6 +24,11 @@ class Character:
 
         # Generating character class attribute
         self.char_class = self.gen_class(char_class)
+        self.class_string = ""
+        for i in self.char_class:
+            self.class_string += f"/{i}"
+        self.class_string = self.class_string[1:]
+
 
         # Generating character background
         self.char_bg = self.gen_background(char_background)
@@ -48,18 +53,30 @@ class Character:
 
         # Checking stats after Growth and Learning - To raise via +1 and +2 Physical and Mental
         self.check_stats()
-        self.update_modifier()
 
         # Checking Skills for Any Skill, etc
         self.check_skills()
 
         # Count Foci and Skills (for adding up multiple levels)
+        self.skills = self.skill_counter()
+        self.foci = self.foci_counter()
 
         # Calculate Max HP
+        self.update_modifier()
+        self.max_hp = self.get_max_hp()
 
         # Calculate rolled HP
+        self.hp = 5  # Temporary
+        #TODO Get the roller parsing going and revisit
+
+        #Attack Bonus
+        if "Warrior" in self.char_class:
+            self.ab = 1
+        else:
+            self.ab = 0
 
         # Generate equipment
+        self.equipment = self.get_equipment_package()
 
         # Final cleaning
 
@@ -443,11 +460,59 @@ class Character:
 
     def skill_counter(self):
         #Remember to sort after this.
-        pass
+        SkillList = []
+        finished = []
+        for skill in self.skills:
+            if skill not in finished: # We count on the first pass, so this will trigger if there is a second pass
+                num = self.skills.count(skill)
+                SkillList.append(str(skill) + '-' + str(num - 1))
+                finished.append(skill)
+        return sorted(SkillList)
 
+    def foci_counter(self):
+        FociList = []
+        finished = []
+        for foc in self.foci:
+            if foc not in finished:
+                num = self.foci.count(foc)
+                FociList.append(str(foc) + ' Level ' + str(num))
+                finished.append(foc)
+        return sorted(FociList)
 
-    #Skill Counter
-    #Foci Count
-    #Max HP
-    #Rolled HP
-    #Equipment Package
+    def get_max_hp(self):
+        mod = 0
+        if "Warrior" in self.char_class:
+            mod += 2
+        if 'Die Hard Level 1' in self.foci or 'Die Hard Level 2' in self.foci:
+            mod += 2
+        mod += int(self.con_mod)
+        max_hp_string = "1d6"
+        if mod != 0:
+            if mod > 0:
+                max_hp_string += f"+{str(mod)}"
+            else:
+                max_hp_string += str(mod)
+        return max_hp_string
+
+    def get_equipment_package(self):
+        possibleList = ['Civilian']
+        for i in range(4):
+            if self.char_bg == 'Barbarian':
+                possibleList.append('Barbarian')
+            if 'Assassin Level 1' in self.foci or 'Assassin Level 2' in self.foci or 'Armsman Level 1' in self.foci or 'Armsman Level 2' in self.foci:
+                possibleList.append('Blade')
+            if self.char_bg in ['Criminal', 'Thug']:
+                possibleList.append('Thief')
+            if 'Hacker Level 1' in self.foci or 'Hacker Level 2' in self.foci:
+                possibleList.append('Hacker')
+            if 'Gunslinger Level 1' in self.foci or 'Gunslinger Level 2' in self.foci:
+                possibleList.append('Gunslinger')
+            if self.char_bg == 'Soldier' or 'Sniper Level 1' in self.foci or 'Sniper Level 2' in self.foci:
+                possibleList.append('Soldier')
+            if 'Wanderer Level 1' in self.foci or 'Wanderer Level 2' in self.foci or self.char_bg in ['Vagabond']:
+                possibleList.append('Scout')
+            if 'Healer Level 1' in self.foci or 'Healer Level 2' in self.foci or 'Physician' in self.char_bg:
+                possibleList.append('Medic')
+            if self.char_bg in ['Technician', 'Spacer'] or 'Tinker Level 1' in self.foci or 'Tinker Level 2' in self.foci:
+                possibleList.append('Technician')
+        return char_tables.equipmentPackages[random.choice(possibleList)]

@@ -41,7 +41,6 @@ class Misc(commands.Cog):
     @commands.command()
     async def megajim(self, ctx):
         """Gives an easy way to search for the Ballad of Mega Jim"""
-        # TODO Make a check to see if it's on the SWN discord. If not, return a different message.
         embed = discord.Embed(title="The Ballad of Mega Jim",
                               color=self.client.embed_color,
                               description='If you want to read the Ballad of Mega Jim, copy and paste this into '
@@ -62,14 +61,33 @@ class Misc(commands.Cog):
         await ctx.channel.send(embed=embed)
 
     @commands.command()
-    async def abnegation(self):
+    async def abnegation(self, ctx):
         """Gives a link to the Revised version of the Abnegation discipline"""
-        pass
+        embed = discord.Embed(title="Abnegation for Revised", color=self.client.embed_color,
+                              description="Teratogenics was original featured in Cult of the Wraith for Other Dust, "
+                                          "which operates on the 1st edition psychic rules.\n\n"
+                                          "It has since been adapted to SWN Revised by Vega Sera.\n\n\n"
+                                          "https://docs.google.com/document/d/16YrjPPz_tZxZGMnKDr14g8b2Of_7NmLqcuBu5oyd7R0/edit?usp=sharing")
+        await ctx.channel.send(embed=embed)
 
     @commands.command()
-    async def teratogenics(self):
+    async def teratogenics(self, ctx):
         """Gives a link to the Revised version of the Teratogenics discipline"""
-        pass
+        embed = discord.Embed(title="Teratogenics for Revised", color=self.client.embed_color,
+                              description="Teratogenics was original featured in Cult of the Still Lady for Other Dust, "
+                                          "which operates on the 1st edition psychic rules.\n\n"
+                                          "It has since been adapted to SWN Revised by Vengeful.\n\n\n"
+                                          "https://docs.google.com/document/d/1qwvqp563CadMU865eg9kzn45bEcdmjht70ZoEU-9f4w/edit?usp=sharing")
+        await ctx.channel.send(embed=embed)
+
+    @commands.command(hidden=True)
+    async def judication(self, ctx):
+        """Explains why Judication is not adapted for revised despite Teratogenics and Abnegation being adapted"""
+        embed = discord.Embed(title="Judication for Revised", color=self.client.embed_color,
+                              description="Judication was originally featured in the Mandate Archives 2011: The "
+                                          "Judicators.\n\nThis is not a free supplement, and as such, Judication will "
+                                          "not be publicly adapted for Revised.")
+        await ctx.channel.send(embed=embed)
 
 
 

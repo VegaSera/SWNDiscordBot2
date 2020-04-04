@@ -2,8 +2,10 @@ import discord
 from discord.ext import commands
 from cogs.character.character_tables import bgtables
 from cogs.character.character_gen import Character
-from cogs.utils.ToolUtils import normalize_message, random_seed_setter
+import cogs.utils.ToolUtils as ToolUtil
 from cogs.utils.word_tables import nountable, NormalAdjTable, SillyAdjTable
+from cogs.random_race.race_gen import Race
+from cogs.planets.raw_planet import Raw_Planet
 import random
 
 
@@ -25,24 +27,59 @@ class Random(commands.Cog):
         """`{prefix}rollcharacter` - Generates a random level 1 SWN Character"""
 
         # A normalized message in lower case to compare to easier.
-        norm = normalize_message(message)
+        norm = ToolUtil.normalize_message(message)
 
         # In depth help message
-        sent_help_message=False
+        sent_help_message = False
         if len(message) > 0:  # Message is not empty. Empty messages should just use default settings.
             if message[0].lower() == "help":
                 print("INVOKED ROLLCHARACTER HELP")
-                # TODO Rollcharacter Help Message
+                char_embed = discord.Embed(title=f"{self.client.command_prefix}rollcharacter Help",
+                                           color=self.client.embed_color,
+                                           description="Generates a level 1 character based on various criteria.")
+                x = self.client.command_prefix  # So we dont have to write it out several times
+                char_embed.add_field(name="Command Modifiers",
+                                     value=f"`{x}rollcharacter` - Generates a random character with a random class and background.\n"
+                                           f"`{x}rollcharacter help` - Displays this message\n"
+                                           f"`{x}rollcharacter (class)` - Generates a random character with the "
+                                           f"specified class(es). Up to two classes in [Warrior, Expert, Psychic, "
+                                           f"Adventurer] - Adventurer will always generate partial classes.\n"
+                                           f"`{x}rollcharacter (background)` - Generates a random character with a specified background. "
+                                           f"Only one background can be specified.\n"
+                                           f"`{x}rollcharacter verbose` - Gives a more detailed log of what happens during character creation.\n"
+                                           f"`{x}rollcharacter seed=XXXX` - Replace XXXX with anything you want to specify the random seed. "
+                                           f"If not specified, it will generate a random seed.\n\n"
+                                           f"Command modifiers can also be combined.\n"
+                                           f"Example: `{x}rollcharacter warrior adventurer noble verbose seed=Potato`\n"
+                                           f"This will generate a random partial Warrior with either Psychic or "
+                                           f"Expert, with the noble background, give a detailed log of character "
+                                           f"creation, and will generate the same every time with the seed Potato"
+                                     , inline=False)
+                char_embed.add_field(name="Technical Stuff",
+                                     value=f"This command goes through the entirety of character generation, but because"
+                                           f" it is random by it's nature, some choices are 'suboptimal'. However it "
+                                           f"behaves smartly in most cases. \nIf Growth provides a +2 Physical Attribute "
+                                           f"bonus, it will first look to raise modifiers before assigning randomly. "
+                                           f"If it sees that it can raise a stat with +1 out of a +2, it will do so "
+                                           f"and use the other +1 somewhere else.\n"
+                                           f"Equipment is also assigned based on the provided tables and what would be "
+                                           f"appropriate for the character's foci and background.\n\nIf it looks like your "
+                                           f"character only has one or two skills, that means it has rolled +1 Any Stat "
+                                           f"or +2 Physical many times in the Growth/Learning phase. "
+                                           f"These are automatically assigned. Use `{x}rollcharacter verbose` to see these."
+                                           f"\n\nBe aware, sometimes silly things can happen."
+                                     , inline=False)
+                char_embed.set_footer(text="Sorry for being excessive :( It's a complex command.")
+                await ctx.channel.send(embed=char_embed)
                 sent_help_message = True
 
-
-        if not sent_help_message: # If a help message gets sent, we dont want to generate a character.
+        if not sent_help_message:  # If a help message gets sent, we dont want to generate a character.
 
             # If we get a bad message at any point, throw an error and prevent the character from generating.
             error_in_message = False
 
             # Setting our seed
-            seed = random_seed_setter()
+            seed = ToolUtil.random_seed_setter()
             for i in message:  # Not using our normalized message because capitalization matters.
                 if i.lower().startswith('seed='):
                     seed = i.split('=')[1]
@@ -65,11 +102,12 @@ class Random(commands.Cog):
                 class_type.append("Psychic")
             if "adventurer" in norm:
                 class_type.append("Adventurer")
-
+            error_embed = discord.Embed(title="Error in Command", color=self.client.embed_color)
             if len(class_type) > 2:
-                print(f"Too many classes passed. User passed {len(class_type)} classes.")
                 error_in_message = True
-                # TODO Return an error to the user and tell them to use less classes.
+                error_embed.add_field(name="Too many classes passed",
+                                      value=f"You passed {len(class_type)} different classes. Use two or less.",
+                                      inline=False)
                 pass
 
             # Finding backgrounds
@@ -77,33 +115,83 @@ class Random(commands.Cog):
             background = []
             for i in norm:
                 if i in bgs:
-                    print("Found specified background", i)
                     background.append(i.capitalize())
             if len(background) > 1:
                 error_in_message = True
-                print(f"Too many backgrounds passed. Found {len(background)} backgrounds in the message.")
-                pass
-                #TODO Throw error and break
+                error_embed.add_field(name="Too many backgrounds passed",
+                                      value=f"You passed {len(background)} different backgrounds. Use one or none.",
+                                      inline=False)
 
-            if not error_in_message: # No errors have been thrown by initial handling.
-                print(f"Passing this information to the character.\nStat type:{stat_type}\nClass={class_type}\nBackground={background}")
-
-                #Generating new character
+            if error_in_message:  # Got an error
+                await ctx.channel.send(embed=error_embed)
+            else:
+                # Generating new character
                 new_char = Character(stat_roll_type=stat_type, char_class=class_type, char_background=background)
-                print("Seed = ", seed)
-                print("Classes = ", new_char.char_class)
-                print("Stat mods", new_char.str_mod, new_char.dex_mod, new_char.con_mod, new_char.int_mod, new_char.wis_mod, new_char.cha_mod )
-                print("Skills", new_char.skills)
-                print("--Verbose Log--")
-                print(new_char.verbose_log)
+
+                # Sending back to user
+                char_embed = discord.Embed(title="Random Character", color=self.client.embed_color)
+                char_embed.add_field(name="Seed", value=seed)
+                char_embed.add_field(name="Class", value=new_char.class_string)
+                char_embed.add_field(name="Background", value=new_char.char_bg)
+                char_embed.add_field(name="Attributes",
+                                     value=f"Strength: {new_char.str} ({new_char.str_mod})\n"
+                                           f"Dexterity: {new_char.dex} ({new_char.dex_mod})\n"
+                                           f"Constitution: {new_char.con} ({new_char.con_mod})\n"
+                                           f"Intelligence: {new_char.int} ({new_char.int_mod})\n"
+                                           f"Wisdom: {new_char.wis} ({new_char.wis_mod})\n"
+                                           f"Charisma: {new_char.cha} ({new_char.cha_mod})\n")
+                char_embed.add_field(name="HP", value=f"{new_char.hp} ({new_char.max_hp})")
+                char_embed.add_field(name="Attack Bonus", value=new_char.ab)
+                char_embed.add_field(name="Foci", value=new_char.foci, inline=False)
+                char_embed.add_field(name="Skills", value=new_char.skills, inline=False)
+                char_embed.add_field(name="Equipment", value=new_char.equipment, inline=False)
+                if 'verbose' in norm:
+                    char_embed.add_field(name="Verbose Log", value=new_char.verbose_log, inline=False)
+                await ctx.channel.send(embed=char_embed)
 
     @commands.command()
     async def rollplanet(self, ctx, *message):
         """`{prefix}rollplanet` - Generates a random planet via the rules as written"""
-        # TODO Random Planet
-        pass
+        norm = ToolUtil.normalize_message(message)
 
-    @commands.command()
+        # In depth help message
+        sent_help_message = False
+        if len(message) > 0:  # Message is not empty.
+            if message[0].lower() == "help":
+                print("INVOKED ROLLPLANET HELP")
+                embed = discord.Embed(title=f"{self.client.command_prefix}rollplanet Help",
+                                      color=self.client.embed_color,
+                                      description="Generates a random planet via the rules as written on page 130")
+                await ctx.channel.send(embed=embed)
+                sent_help_message = True
+
+        if not sent_help_message:  # If a help message gets sent, we dont want to generate anything.
+
+            # Setting our seed
+            seed = ToolUtil.random_seed_setter()
+            for i in message:  # Not using our normalized message because capitalization matters.
+                if i.lower().startswith('seed='):
+                    seed = i.split('=')[1]
+            random.seed(seed)
+
+
+            #TODO Generate different type of planet that makes more sense.
+            new_planet = Raw_Planet(num_tags=3)
+
+
+            embed = discord.Embed(title="Random Planet", color=self.client.embed_color)
+            embed.add_field(name="Planet Name", value=ToolUtil.random_namer(2,4), inline=False)
+            embed.add_field(name="Seed", value=seed, inline=False)
+            embed.add_field(name="Atmosphere", value=new_planet.atmo)
+            embed.add_field(name="Temperature", value=new_planet.temp)
+            embed.add_field(name="Biosphere", value=new_planet.bio)
+            embed.add_field(name="Population", value=new_planet.pop)
+            embed.add_field(name="Tech Level", value=new_planet.tl)
+            embed.add_field(name="World Tags", value=new_planet.world_tags, inline=False)
+
+            await ctx.channel.send(embed=embed)
+
+    @commands.command(hidden=True)
     async def rollship(self, ctx, *message):
         """`{prefix}rollship` - Generates a random ship with fittings"""
         # TODO Random Ship
@@ -173,8 +261,39 @@ class Random(commands.Cog):
     @commands.command()
     async def rollrace(self, ctx, *message):
         """`{prefix}rollrace` - Generates an alien race with features and lenses. Basically combines aliens and beasts from the book"""
-        # TODO Random Race
-        pass
+
+        # A normalized message in lower case to compare to easier.
+        norm = ToolUtil.normalize_message(message)  # Not currently used, but may be in the future when modifiers need parsed.
+
+        # In depth help message
+        sent_help_message = False
+        if len(message) > 0:  # Message is not empty.
+            if message[0].lower() == "help":
+                print("INVOKED ROLLRACE HELP")
+                # TODO Rollrace Help
+                sent_help_message = True
+
+        if not sent_help_message:  # If a help message gets sent, we dont want to generate anything.
+
+            # Setting our seed
+            seed = ToolUtil.random_seed_setter()
+            for i in message:  # Not using our normalized message because capitalization matters.
+                if i.lower().startswith('seed='):
+                    seed = i.split('=')[1]
+            random.seed(seed)
+
+            new_race = Race()
+            race_embed = discord.Embed(title="Random Race", color=self.client.embed_color)
+            race_embed.add_field(name="Race Name", value=ToolUtil.random_namer(2, 5), inline=False)
+            race_embed.add_field(name="Seed", value=seed, inline=False)
+            race_embed.add_field(name="Basic Features", value=new_race.base)
+            race_embed.add_field(name="Body Plan", value=new_race.body)
+            race_embed.add_field(name="Size", value=new_race.size)
+            race_embed.add_field(name="Lens/Psychology", value=new_race.lens, inline=False)
+            race_embed.add_field(name="Social Structure", value=new_race.social, inline=False)
+            race_embed.add_field(name="Racial Perks", value=new_race.perk, inline=False)
+
+            await ctx.channel.send(embed=race_embed)
 
     @commands.command()
     async def quick(self, ctx, *message):

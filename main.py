@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
-import os, sys, traceback
+import os
 import discord
 from discord.ext import commands
-import asyncio
+
 
 
 #Make sure you have an .env file in the root folder with your discord bot's token in it. You ain't havin' mine.
@@ -43,12 +43,28 @@ async def print_action(message):
         print(message.created_at, "-- Messaged by:", message.author, "-- Guild:", message.guild,
               "-- Message Channel:", message.channel, "-- Message content:", message.content)
 
-#TODO Slur deleter and reporter
 
 async def moderator(message):
-    banned_words = ['banana']
-    if any(x in message.content for x in banned_words):
-        print(f"-=-=-NAUGHTY WORD DETECTED-=-=- by: {message.author} in server:{message.guild} channel:{message.channel} - - Message with bad words - {message.content}")
+    banned_words = [] #Banned words to be added later
+    admin_channel = None
+    for banned in banned_words:
+        if banned in message.content:
+            for i in message.guild.channels:  # Gets an admin channel to post a report
+                if str(i).startswith('admin'):
+                    admin_channel = i.id
+                    break
+            if admin_channel is not None:
+                channel = client.get_channel(admin_channel)
+                embed = discord.Embed(title="Message automatically deleted and reported",
+                                      color=discord.Color.red(),
+                                      description=f"A message has automatically deleted by moderation tools at {message.created_at}. Details below.")
+                embed.add_field(name="Offending User:", value=message.author)
+                embed.add_field(name="In channel:", value=message.channel)
+                embed.add_field(name="Reason", value=f"Particularly Offensive Language - {banned}")
+                embed.add_field(name="Offending Message", value=message.content, inline=False)
+                await channel.send(embed=embed)
+                await message.author.send(embed=embed)
+            await message.delete()
 
 client.add_listener(print_action, 'on_message')
 
@@ -60,10 +76,10 @@ async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
-    # print("DO NOT PUSH WITH THIS VISIBLE - TOKEN: ", TOKEN)
     print('Discord version: ' + str(discord.__version__))
     print('------')
-    await client.change_presence(status=discord.Status.online, activity=discord.Game(name='#bot-commands | !help'))
+    await client.change_presence(status=discord.Status.online,
+                                 activity=discord.Game(name=f'#bot-commands | {client.command_prefix}help'))
 
 
 client.run(TOKEN)

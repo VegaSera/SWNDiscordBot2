@@ -96,3 +96,24 @@ FociList = {'Alert': 'Notice',
 
 skillTable = ['Administer', 'Connect', 'Exert', 'Fix', 'Heal', 'Know', 'Lead', 'Notice', 'Perform', 'Pilot',
                   'Program', 'Punch', 'Shoot', 'Sneak', 'Stab', 'Survive', 'Talk', 'Trade', 'Work']
+
+equipmentPackages = {'Barbarian':"Spear(1d6+1 damage), Primitive Hide Armor(AC 13), Primitive Shield(+1 AC),"
+                                 " Knife(1d4 damage), Backpack TL0, 7 days rations, 20m Rope, 500 credits",
+                     'Blade':"Monoblade Sword(1d8+1 damage), Woven Body Armor(AC 15), Secure Clothing(AC 13),"
+                              " Thermal Knife(1d6 damage), Backpack TL0, Compad, Lazarus Patch, 50 Credits",
+                     'Thief':"Laser Pistol(1d6 damage), Armored Undersuit(AC 13), Monoblade Knife(1d6 damage)," 
+                              " Climbing Harness, Low Light Goggles, 2 Type-A Cells, Backpack TL0",
+                     'Hacker':"Laser Pistol(1d6 damage), Secure Clothing(AC 13), Postech Tool Kit,"
+                              " 3 units of spare parts, 2 Type-A Cells, Dataslab, Metatool, 2 Line Shunts, 100 Credits",
+                     'Gunslinger':"Laser Pistol(1d6 damage), Armored Undersuit(AC 13), Monoblade Knife(1d6 damage),"
+                                  " 8 Type-A Cells, Backpack TL0, Compad, 100 Credits",
+                     'Soldier':"Combat Rifle(1d12 damage), Woven Body Armor(AC 15), Knife(1d4 damage),"
+                               " 80 rounds Ammo, Backpack TL0, Compad, 100 Credits",
+                     'Scout':"Laser Rifle(1d10 damage), Armored Vacc Suit(AC 13), Knife(1d4 damage), Survey Scanner, "
+                             " Survival Kit, Binoculars TL3, 8 Type-A Cells, Backpack TL0, Compad, 25 Credits",
+                     'Medic':"Laser Pistol(1d6 damage), Secure Clothing(AC 13), 4 Lazarus Patches, 2 doses of Lift, "
+                             " Backpack TL0, Medkit, Compad, Bioscanner, 25 Credits",
+                     'Civilian':"Secure Clothing(AC 13), Compad, 700 Credits",
+                     'Technician':"Laser Pistol(1d6 damage), Armored Undersuit(AC 13), Monoblade Knife(1d6 damage) "
+                                  " Postech Toolkit, 6 units of spare parts, 4 Type-A Cells, Backpack TL0, Dataslab,"
+                                  " Metatool, 200 Credits"}
