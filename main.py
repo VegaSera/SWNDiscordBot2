@@ -40,6 +40,7 @@ async def print_action(message):
     if message.author == client.user:
         pass
     else:
+        # TODO Make it so we're not getting EVERY message on the servers being printed.
         print(message.created_at, "-- Messaged by:", message.author, "-- Guild:", message.guild,
               "-- Message Channel:", message.channel, "-- Message content:", message.content)
 
