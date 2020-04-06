@@ -1,4 +1,6 @@
 from cogs.utils import ToolUtils as t_utils
+from cogs.dice import dice_utils
+
 import cogs.character.character_tables as char_tables
 import random
 
@@ -66,8 +68,7 @@ class Character:
         self.max_hp = self.get_max_hp()
 
         # Calculate rolled HP
-        self.hp = 5  # Temporary
-        #TODO Get the roller parsing going and revisit
+        self.hp = dice_utils.parse_dice_string(self.max_hp)[0]
 
         #Attack Bonus
         if "Warrior" in self.char_class:
@@ -86,8 +87,8 @@ class Character:
             num = t_utils.diceroller(3, 6)
             return num
         elif arg == "4d6d1":
-            pass
-            # TODO Generate stats with drop dice.
+            num = dice_utils.drop_dice(4, 6, 1)
+            return num
             # Rolls 4d6 drop lowest for stats.
         else:
             print(f"Unexpected value in Character.rand_stat() - {arg}")
@@ -129,7 +130,6 @@ class Character:
                 class_list.remove(choice)
                 char_class_list.append(choice)
             return char_class_list
-        # TODO User can specify "expert warrior" "psychic warrior" "adventurer psychic" "adventurer expert warrior" - Handle it.
         else:  # Probably have more than one class.
             total_class_list = ['Warrior', 'Expert', 'Psychic']
             class_list = []

@@ -13,7 +13,7 @@ class Misc(commands.Cog):
 
     @commands.command(aliases=['avionics'])
     async def about(self, ctx):
-        """About this bot"""
+        """`{prefix}about` - About this bot"""
         embed = discord.Embed(title="About This Bot",
                               color=self.client.embed_color,
                               description="This bot is the second iteration of a discord bot written by Vega Sera. "
@@ -40,7 +40,7 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def megajim(self, ctx):
-        """Gives an easy way to search for the Ballad of Mega Jim"""
+        """`{prefix}megajim` - Gives an easy way to search for the Ballad of Mega Jim"""
         embed = discord.Embed(title="The Ballad of Mega Jim",
                               color=self.client.embed_color,
                               description='If you want to read the Ballad of Mega Jim, copy and paste this into '
@@ -62,7 +62,7 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def abnegation(self, ctx):
-        """Gives a link to the Revised version of the Abnegation discipline"""
+        """`{prefix}abnegation` - Gives a link to the Revised version of the Abnegation discipline, adapted by Vega Sera"""
         embed = discord.Embed(title="Abnegation for Revised", color=self.client.embed_color,
                               description="Teratogenics was original featured in Cult of the Wraith for Other Dust, "
                                           "which operates on the 1st edition psychic rules.\n\n"
@@ -72,7 +72,7 @@ class Misc(commands.Cog):
 
     @commands.command()
     async def teratogenics(self, ctx):
-        """Gives a link to the Revised version of the Teratogenics discipline"""
+        """`{prefix}teratogenics` - Gives a link to the Revised version of the Teratogenics discipline, adapted by Vengeful"""
         embed = discord.Embed(title="Teratogenics for Revised", color=self.client.embed_color,
                               description="Teratogenics was original featured in Cult of the Still Lady for Other Dust, "
                                           "which operates on the 1st edition psychic rules.\n\n"
@@ -82,7 +82,7 @@ class Misc(commands.Cog):
 
     @commands.command(hidden=True)
     async def judication(self, ctx):
-        """Explains why Judication is not adapted for revised despite Teratogenics and Abnegation being adapted"""
+        """`{prefix}judication` - Explains why Judication is not adapted for revised despite Teratogenics and Abnegation being adapted"""
         embed = discord.Embed(title="Judication for Revised", color=self.client.embed_color,
                               description="Judication was originally featured in the Mandate Archives 2011: The "
                                           "Judicators.\n\nThis is not a free supplement, and as such, Judication will "

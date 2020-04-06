@@ -4,6 +4,8 @@ from cogs.character.character_tables import bgtables
 from cogs.character.character_gen import Character
 import cogs.utils.ToolUtils as ToolUtil
 from cogs.utils.word_tables import nountable, NormalAdjTable, SillyAdjTable
+import cogs.utils.namer as namer
+import cogs.quick_helpers.quick_classes as quickc
 from cogs.random_race.race_gen import Race
 from cogs.planets.raw_planet import Raw_Planet
 import random
@@ -88,7 +90,6 @@ class Random(commands.Cog):
             # Setting up our stat_type
             if "udb" in norm or "4d6d1" in norm:
                 stat_type = "4d6d1"
-                # TODO This will error out if invoked until we complete a drop dice roller.
             else:
                 stat_type = "norm"
 
@@ -269,8 +270,13 @@ class Random(commands.Cog):
         sent_help_message = False
         if len(message) > 0:  # Message is not empty.
             if message[0].lower() == "help":
-                print("INVOKED ROLLRACE HELP")
-                # TODO Rollrace Help
+                embed = discord.Embed(title=f"{self.client.command_prefix}rollrace Help",
+                                      color=self.client.embed_color,
+                                      description="Generates a random alien race using a combination of Alien Race rules"
+                                                  " and beast rules.\n\n Currently this command does not support any "
+                                                  "modifiers other than `seed=XXXX`, but in the future you will be "
+                                                  "able to specify various parts.")
+                await ctx.channel.send(embed=embed)
                 sent_help_message = True
 
         if not sent_help_message:  # If a help message gets sent, we dont want to generate anything.
@@ -298,8 +304,98 @@ class Random(commands.Cog):
     @commands.command()
     async def quick(self, ctx, *message):
         """`{prefix}quick npc` - Generates a quick roll NPC via the RAW. `npc` can be replaced with `patron`, `urban`, and `wilderness`"""
-        # TODO Quick tables
-        pass
+        norm = ToolUtil.normalize_message(message)
+        x = self.client.command_prefix
+        sent_help_message = False
+        if len(message) == 0 or message[0].lower() == "help":
+            print("INVOKED QUICK HELP")
+            npc_embed = discord.Embed(title=f"{self.client.command_prefix}quick Help",
+                                  color=self.client.embed_color,
+                                  description="One-roll stuff based on the tables on pages 244-247")
+            npc_embed.add_field(name=f"`{x}quick npc`", value = "Generates an NPC", inline=False)
+            npc_embed.add_field(name=f"`{x}quick patron`",
+                                value=f"Generates a Patron, a job contact.\n\nFor both NPCs and Patrons, you can "
+                                      f"specify a gender by using a modifier like `{x}quick npc female` and such.", inline=False)
+            npc_embed.add_field(name=f"`{x}quick urban`", value="Generates an Urban Encounter", inline=False)
+            npc_embed.add_field(name=f"`{x}quick wilderness`", value="Generates a Wilderness Encounter", inline=False)
+            await ctx.channel.send(embed=npc_embed)
+            sent_help_message = True
+
+        if not sent_help_message:
+            seed = ToolUtil.random_seed_setter()
+            for i in message:  # Not using our normalized message because capitalization matters.
+                if i.lower().startswith('seed='):
+                    seed = i.split('=')[1]
+            random.seed(seed)
+
+            if message[0].lower() == 'npc':
+                if 'female' in norm:
+                    gender = 'f'
+                elif 'male' in norm:
+                    gender = 'm'
+                else:
+                    gender = None
+
+                npc = quickc.NPC(gender=gender)
+                npc_embed = discord.Embed(title="Random Quick-Roll NPC", color=self.client.embed_color)
+                npc_embed.add_field(name="Seed", value=seed)
+                npc_embed.add_field(name="Name", value=npc.name)
+                npc_embed.add_field(name="Age", value=npc.age, inline=False)
+                npc_embed.add_field(name="Background", value=npc.background, inline=False)
+                npc_embed.add_field(name="Their Role in Society", value=npc.role, inline=False)
+                npc_embed.add_field(name="Their Biggest Problem", value=npc.problem, inline=False)
+                npc_embed.add_field(name="Their Greatest Desire", value=npc.desire, inline=False)
+                npc_embed.add_field(name="Most Obvious Character Trait", value=npc.trait, inline=False)
+                await ctx.channel.send(embed=npc_embed)
+
+            elif message[0].lower() == 'patron':
+                if 'female' in norm:
+                    gender = 'f'
+                elif 'male' in norm:
+                    gender = 'm'
+                else:
+                    gender = None
+
+                patron = quickc.Patron(gender=gender)
+                patron_embed = discord.Embed(title="Random Quick-Roll Patron", color=self.client.embed_color)
+                patron_embed.add_field(name="Seed", value=seed)
+                patron_embed.add_field(name="Name", value=patron.name)
+                patron_embed.add_field(name="Eagerness to Hire", value=patron.eagerness, inline=False)
+                patron_embed.add_field(name="Trustworthiness", value=patron.trust, inline=False)
+                patron_embed.add_field(name="Basic challenge of the job", value=patron.challenge, inline=False)
+                patron_embed.add_field(name="Main Countervaling force", value=patron.counter, inline=False)
+                patron_embed.add_field(name="Potential Non-cash Rewards", value=patron.reward, inline=False)
+                patron_embed.add_field(name="Complication to the Job", value=patron.complication, inline=False)
+                await ctx.channel.send(embed=patron_embed)
+
+            elif message[0].lower() == 'urban':
+
+                urban = quickc.Urban()
+                urban_embed = discord.Embed(title="Random Quick-Roll Urban Encounter", color=self.client.embed_color)
+                urban_embed.add_field(name="Seed", value=seed)
+                urban_embed.add_field(name="What is the conflict about?", value=urban.conflict, inline=False)
+                urban_embed.add_field(name="General Venue of the Event", value=urban.venue, inline=False)
+                urban_embed.add_field(name="Why are PCs involved?", value=urban.pc_involve, inline=False)
+                urban_embed.add_field(name="What is the nature of the event?", value=urban.nature, inline=False)
+                urban_embed.add_field(name="What antagonists are involved?", value=urban.antag_involve, inline=False)
+                urban_embed.add_field(name="Relevant Urban Features", value=urban.features, inline=False)
+                await ctx.channel.send(embed=urban_embed)
+
+            elif message[0].lower() == 'wilderness':
+                wild = quickc.Wilderness()
+                wild_embed = discord.Embed(title="Random Quick-Roll Wilderness Encounter", color=self.client.embed_color)
+                wild_embed.add_field(name="Seed", value=seed)
+                wild_embed.add_field(name="Initial Encounter Range", value=wild.range, inline=False)
+                wild_embed.add_field(name="Weather and Lighting", value=wild.weather, inline=False)
+                wild_embed.add_field(name="Basic Nature of the Encounter", value=wild.nature, inline=False)
+                wild_embed.add_field(name="Types of Friendly Creatures", value=wild.friendly, inline=False)
+                wild_embed.add_field(name="Types of Hostile Creatures", value=wild.hostile, inline=False)
+                wild_embed.add_field(name="Specific Nearby Features of Relevance", value=wild.features, inline=False)
+                await ctx.channel.send(embed=wild_embed)
+
+
+
+
 
 
 def setup(client):

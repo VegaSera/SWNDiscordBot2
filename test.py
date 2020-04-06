@@ -55,15 +55,33 @@ newchar = char()
 # class_type = None
 # list(class_type)
 # print(class_type, type(class_type))
+#
+# listthing = [0, 1, 2, 3, 4, 5]
+#
+# for i in listthing:
+#     if i == 2:
+#         listthing.append(1)
+#     elif i == 1:
+#         print("I FOUND A ONE! HOPEFULLY I'LL FIND ANOTHER")
+#     elif i == 3:
+#         listthing.remove(i)
+# print(listthing)
+#
+# import random
+#
+# featuredict = {1:"Amphibian",2:"Bird",3:"Fish",4:"Insect",5:"Mammal",6:"Reptile",7:"Spider",8:"Exotic"}
+# print(random.choice(featuredict))
 
-listthing = [0, 1, 2, 3, 4, 5]
+def returns_tuple():
+    a = 5
+    b = 6
+    c = 7
+    return a, b, c
 
-for i in listthing:
-    if i == 2:
-        listthing.append(1)
-    elif i == 1:
-        print("I FOUND A ONE! HOPEFULLY I'LL FIND ANOTHER")
-    elif i == 3:
-        listthing.remove(i)
-print(listthing)
+print("Function output", returns_tuple())
 
+x, y, z = returns_tuple()
+
+print("x =", x)
+print("y =", y)
+print("z =", z)

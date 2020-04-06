@@ -10,7 +10,7 @@ load_dotenv()
 TOKEN = os.getenv("TOKEN")
 
 
-client = commands.Bot(command_prefix=".")
+client = commands.Bot(command_prefix="!")
 client.embed_color = discord.Color.blue()
 
 
@@ -71,12 +71,22 @@ client.add_listener(print_action, 'on_message')
 client.add_listener(moderator, 'on_message')
 
 
+
+
+
 @client.event
 async def on_ready():
+
+    #Getting user count
+    num_users = 0
+    for server in client.guilds:
+        num_users += len(server.members)
+
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('Discord version: ' + str(discord.__version__))
+    print(f'Connected to {len(client.guilds)} server{"s" if len(client.guilds) > 1 else ""} servicing {num_users} users')
     print('------')
     await client.change_presence(status=discord.Status.online,
                                  activity=discord.Game(name=f'#bot-commands | {client.command_prefix}help'))

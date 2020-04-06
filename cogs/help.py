@@ -81,7 +81,7 @@ class Help(commands.Cog):
                     await ctx.message.channel.send('', embed=halp)
         except:
             # This is uninformative and fails silently. Need to fix this.
-            print("SOMETHING MESSED UP IN HELP! HAAALP!")
+            print("Something has failed in !help and is failing slightly less than silently.")
             # pass
 
     @commands.command()
@@ -98,6 +98,31 @@ class Help(commands.Cog):
         print("-=BUG REPORT RECEIVED=-")
         await ctx.channel.send(embed=bugrep)
 
+    @commands.command()
+    async def contribute(self, ctx):
+        """`{prefix}contribute` - Shows a list of ways you can help contribute to the bot, no coding necessary."""
+
+        embed = discord.Embed(title="Contributing to the bot",
+                              color=self.client.embed_color,
+                              description="There are several features that I simply cannot do alone, whether due to "
+                                          "time constraints or attention span. Below I'll list a couple of potential "
+                                          "in-progress things to help flesh out some future features. Most of the entries "
+                                          "here will require no coding experience whatsoever, mostly data entry and "
+                                          f"ideas.\n\n However, if you do know Python and have some ideas, consider using the "
+                                          f"`{self.client.command_prefix}github` command and having a look over the code.")
+        embed.add_field(name="General/Ambiguous Idea",
+                        value="If you have an idea that isn't in the bot, or isn't here already, feel free to tag or DM Vega Sera, "
+                              f"or type `{self.client.command_prefix}bugreport (suggestion)` and suggest your idea. It does not matter "
+                              f"if it is a bug or a suggestion, it's just a way to make sure I see things.",
+                        inline=False)
+        embed.add_field(name="System Reference Database",
+                        value="The goal of this project is to allow for commands to reference everything in the free "
+                              "rulebook. Everything from foci, to weapons and weapon tables, armor, world tags and "
+                              "their descriptors, etc. You can find the link to the google sheet below. "
+                              "Contributors will of course be credited. \n\n\n "
+                              "https://docs.google.com/spreadsheets/d/1PMEh7RfPM6MxmDpk1LdnMWQHzIc9elDEiTcJUlzhrX8/edit?usp=sharing",
+                        inline=False)
+        await ctx.channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(Help(client))
