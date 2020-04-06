@@ -15,5 +15,6 @@ Step 2 - Create an .env file in the root folder alongside the .gitignore and rea
 Step 3 - Populate the .env file with a few things
 ```buildoutcfg
 TOKEN = (your bot token here)
+BTN_KEY = (Behind the Name API key for random names)
 ```
 Step 4 - Run main.py
