@@ -92,6 +92,31 @@ class Server(commands.Cog):
                                   description="You will be notified when there are updates to the Roll20 Sheet")
             await ctx.channel.send(embed=embed)
 
+    @commands.command()
+    async def playtest(self, ctx, *message):
+        """Either assigns or removes the Roll20 Sheet Follower role, based on whether or not you have it already"""
+        result = await server_utils.toggle_group("playtester", ctx)
+
+        if result == 'whisper':  # Role has not been found on the server
+            embed = discord.Embed(title="Could not add/remove the Roll20 Sheet Follower role",
+                                  color=discord.Color.red(),
+                                  description="You are DMing this bot right now. Roles do not exist in DMs. Use this command on a server.")
+            await ctx.channel.send(embed=embed)
+        elif result == 'role not found':  # Role has not been found on the server
+            embed = discord.Embed(title="Could not add/remove the Roll20 Sheet Follower role",
+                                  color=discord.Color.red(),
+                                  description="AVIONICS did not recognize any roles named 'Playtester' on this server.")
+            await ctx.channel.send(embed=embed)
+        elif result == 'removed':  # Role has been found, will remove it from the user
+            embed = discord.Embed(title=f"Playtester Role removed from {ctx.author}",
+                                  color=self.client.embed_color,
+                                  description="You will no longer receive notifications when there are things to playtest.")
+            await ctx.channel.send(embed=embed)
+        elif result == 'added':  # Role has been found on the server, but not on the user. Adding it.
+            embed = discord.Embed(title=f"Playtester Role added to {ctx.author}",
+                                  color=self.client.embed_color,
+                                  description="You will be notified when someone has a something they would like to playtest.")
+            await ctx.channel.send(embed=embed)
 
 def setup(client):
     client.add_cog(Server(client))

@@ -14,3 +14,6 @@ class Test(commands.Cog):
 
 def setup(client):
     client.add_cog(Test(client))
+
+if __name__ == '__main__':
+    print(True, True, True == True, True, True)

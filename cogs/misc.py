@@ -64,7 +64,7 @@ class Misc(commands.Cog):
     async def abnegation(self, ctx):
         """`{prefix}abnegation` - Gives a link to the Revised version of the Abnegation discipline, adapted by Vega Sera"""
         embed = discord.Embed(title="Abnegation for Revised", color=self.client.embed_color,
-                              description="Teratogenics was original featured in Cult of the Wraith for Other Dust, "
+                              description="Abnegation was original featured in Cult of the Wraith for Other Dust, "
                                           "which operates on the 1st edition psychic rules.\n\n"
                                           "It has since been adapted to SWN Revised by Vega Sera.\n\n\n"
                                           "https://docs.google.com/document/d/16YrjPPz_tZxZGMnKDr14g8b2Of_7NmLqcuBu5oyd7R0/edit?usp=sharing")

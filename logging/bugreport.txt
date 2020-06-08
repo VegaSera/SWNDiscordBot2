@@ -1,0 +1,42 @@
+Bug Report created at 2020-04-10 14:52:24.508000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Feature idea - When the new !rollplanet is created, also generate planet legal rules like weapon/armor/psychic legality.
+ -- Status: NEW
+ -- Developer Comments: [] 
+
+Bug Report created at 2020-04-12 01:34:04.892000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Abnegation description talks about teratogenics
+ -- Status: RESOLVED
+ -- Developer Comments: [N/A]
+
+Bug Report created at 2020-05-05 23:33:20.047000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport random adventure seed generator page 181
+ -- Status: NEW
+ -- Developer Comments: [] 
+
+
+Bug Report created at 2020-05-20 04:08:33.341000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport An ACTUAL bug report. Help error is returning the wrong prefix.
+ -- Status: NEW
+ -- Developer Comments: [] 
+
+
+Bug Report created at 2020-06-08 03:18:40.901000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Add a command to give link to add Avionics to another server - https://discordapp.com/oauth2/authorize?client_id=434493327279259648&permissions=268445760&scope=bot
+ -- Status: NEW
+ -- Developer Comments: [] 
+
