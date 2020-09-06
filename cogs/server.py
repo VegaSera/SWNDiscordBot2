@@ -144,5 +144,12 @@ class Server(commands.Cog):
                                   description="You will be notified when someone has a something they would like to playtest.")
             await ctx.channel.send(embed=embed)
 
+    @commands.command()
+    async def getavionics(self, ctx, *message):
+        embed = discord.Embed(title="Add this bot to your own server!",
+                              color=self.client.embed_color,
+                              description='https://discordapp.com/oauth2/authorize?client_id=434493327279259648&permissions=268445760&scope=bot')
+        await ctx.channel.send(embed=embed)
+
 def setup(client):
     client.add_cog(Server(client))
