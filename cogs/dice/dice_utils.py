@@ -52,7 +52,7 @@ def is_sensible_roll(dice):
     elif int(dice[2]) > 50000: #Attempted to roll a die with more than 50000 sides.
         return False, "Attempted to roll a dice with more than 50000 sides."
     else:
-        return True
+        return True, ""
 
 
 def parse_dice_string(dicestring, verbose=False):
@@ -66,10 +66,9 @@ def parse_dice_string(dicestring, verbose=False):
 
     #Keep Dice
     #Structure of the keep dice - [Sign/Start Of String][Number of Dice][Number of Sides][Number to Keep]
-
     #Checking for sensibility
     for i in keepdice:
-        if not is_sensible_roll(i):
+        if not is_sensible_roll(i)[0]:
             return 0, is_sensible_roll(i)[1]
 
         print(i)
@@ -99,7 +98,7 @@ def parse_dice_string(dicestring, verbose=False):
             results.append(total)
 
     for i in dropdice:
-        if not is_sensible_roll(i):
+        if not is_sensible_roll(i)[0]:
             return 0, is_sensible_roll(i)[1]
 
         total, keptlist = drop_dice(int(i[1]), int(i[2]), int(i[3]))
@@ -126,7 +125,7 @@ def parse_dice_string(dicestring, verbose=False):
             results.append(total)
 
     for i in simple_dice:
-        if not is_sensible_roll(i):
+        if not is_sensible_roll(i)[0]:
             return 0, is_sensible_roll(i)[1]
 
         total, split = diceroller(int(i[1]), int(i[2]), verbose=True)

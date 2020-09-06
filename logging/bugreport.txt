@@ -28,8 +28,8 @@ Bug Report created at 2020-05-20 04:08:33.341000
  -- Guild: Stars Without Number Community Server
  -- Channel: bot-commands
  -- Bug: !bugreport An ACTUAL bug report. Help error is returning the wrong prefix.
- -- Status: NEW
- -- Developer Comments: [] 
+ -- Status: RESOLVED
+ -- Developer Comments: [N/A]
 
 
 Bug Report created at 2020-06-08 03:18:40.901000
@@ -37,6 +37,30 @@ Bug Report created at 2020-06-08 03:18:40.901000
  -- Guild: Stars Without Number Community Server
  -- Channel: bot-commands
  -- Bug: !bugreport Add a command to give link to add Avionics to another server - https://discordapp.com/oauth2/authorize?client_id=434493327279259648&permissions=268445760&scope=bot
+ -- Status: RESOLVED
+ -- Developer Comments: [N/A]
+
+Bug Report created at 2020-06-09 02:33:47.643000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Figure out why the bot sometimes silently fails and hangs.
+ -- Status: NEW
+ -- Developer Comments: [] 
+
+Bug Report created at 2020-07-22 18:48:22.542000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport !rollcharacter seed=functional produces a psychic with less psychic skills than expected.
+ -- Status: NEW
+ -- Developer Comments: [] 
+
+Bug Report created at 2020-08-16 04:32:49.431000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Anti-plagues defensive measures are down. Solve immediately. This is a matter of national security.
  -- Status: NEW
  -- Developer Comments: [] 
 
