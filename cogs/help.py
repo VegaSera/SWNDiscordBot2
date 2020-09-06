@@ -71,7 +71,7 @@ class Help(commands.Cog):
                     if not found:
                         halp = discord.Embed(title='Error!',
                                              description='If you are trying to access specific help for a command '
-                                                         'called .' + cog[0] + ', you may want to try `.' + cog[0] +
+                                                         f'called {self.client.command_prefix}' + cog[0] + f', you may want to try `{self.client.command_prefix}' + cog[0] +
                                                          ' help`\nOtherwise you may have simply misspelled what '
                                                          'you\'re looking for',
                                              color=discord.Color.red())
@@ -84,7 +84,7 @@ class Help(commands.Cog):
             print("Something has failed in !help and is failing slightly less than silently.")
             # pass
 
-    @commands.command()
+    @commands.command(aliases=['suggestion'])
     async def bugreport(self, ctx):
         """`{prefix}bugreport` - Files a bug report. Be descriptive"""
 
@@ -93,9 +93,9 @@ class Help(commands.Cog):
             my_file.write(f"Bug Report created at {ctx.message.created_at}\n -- Author: {ctx.author}\n"
                           f" -- Guild: {ctx.guild}\n -- Channel: {ctx.channel}\n -- Bug: {ctx.message.content}\n"
                           f" -- Status: NEW\n -- Developer Comments: [] \n\n")
-        bugrep = discord.Embed(name="Bug report received", color=self.client.embed_color)
-        bugrep.set_footer(text="Bug Report Received")
-        print("-=BUG REPORT RECEIVED=-")
+        bugrep = discord.Embed(name="Bug report/Suggestion received", color=self.client.embed_color)
+        bugrep.set_footer(text="Bug Report/Suggestion Received")
+        print("-=BUG REPORT/SUGGESTION RECEIVED=-")
         await ctx.channel.send(embed=bugrep)
 
     @commands.command()

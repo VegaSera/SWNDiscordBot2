@@ -3,7 +3,7 @@ import os
 import discord
 from discord.ext import commands
 
-
+print(str(discord.__version__))
 
 #Make sure you have an .env file in the root folder with your discord bot's token in it. You ain't havin' mine.
 load_dotenv()
