@@ -8,6 +8,8 @@ import cogs.utils.namer as namer
 import cogs.quick_helpers.quick_classes as quickc
 from cogs.random_race.race_gen import Race
 from cogs.planets.raw_planet import Raw_Planet
+from cogs.suns_of_gold.trade_table_gen import TradePlanet
+from tabulate import tabulate
 import random
 
 
@@ -392,6 +394,101 @@ class Random(commands.Cog):
                 wild_embed.add_field(name="Types of Hostile Creatures", value=wild.hostile, inline=False)
                 wild_embed.add_field(name="Specific Nearby Features of Relevance", value=wild.features, inline=False)
                 await ctx.channel.send(embed=wild_embed)
+
+    @commands.command()
+    async def tradetable(self, ctx, *message):
+        """`{prefix}tradetable` - Generates a Suns of Gold compatible trade table"""
+        norm = ToolUtil.normalize_message(message)
+        sent_help_message = False
+        if len(norm) > 0:
+            if norm[0] == 'help':
+                x = self.client.command_prefix
+                trade_embed = discord.Embed(title=f"{x}tradetable Help",
+                                           color=self.client.embed_color,
+                                           description="Generates a random trade table based on Suns of Gold.")
+                trade_embed.add_field(name="Command Modifiers",
+                                     value=f"`{x}tradetable` - Generates a new random trade table.\n"
+                                           f"`{x}tradetable seed=XXXX` - Generates a trade table based on the provided seed. Results for each seed will only be the case if the input message is the same. Changing parameters while keeping the same seed will change the result.\n"
+                                           f"`{x}tradetable tl=3` - Specifies the tech level for the planet. Must be a number from 0 to 5, inclusive. If not specified, it will be random.\n"
+
+                                     , inline=False)
+                trade_embed.add_field(name="How to use this table",
+                                      value=f"First and foremost, Suns of Gold is a paid supplement, and utilizing this trade table requires rules from that supplement.\n"
+                                            f"If you do not understand the specifics behind the fields we generate, "
+                                            f"we suggest that you purchase Suns of Gold from the link below and refer to the rules there.\n\n"
+                                            f"https://www.drivethrurpg.com/product/114950/Suns-of-Gold-Merchant-Campaigns-for-Stars-Without-Number\n\n\n"
+                                            f"With all that being said, this bot will generate a randomized trade table different than the ones provided in the book, but in the same style.\n"
+                                            f"The table provided is meant to indicate a planet, with its trade tag modifiers, purchasable goods, base cost for those goods, and de-fluffed troubles.\n"
+                                            f"The planet, troubles, and randomized goods are provided without fluff, so it make take some narrative work to describe the planet or the goods."
+
+                                      , inline=False)
+                trade_embed.set_footer(text="Seriously though, go buy the Suns of Gold supplement if you haven't yet.")
+                await ctx.channel.send(embed=trade_embed)
+                sent_help_message = True
+
+        if not sent_help_message:
+
+            error_in_message = False
+            error_embed = discord.Embed(title="Error in Command", color=self.client.embed_color)
+
+            seed = ToolUtil.random_seed_setter()
+            tl = None
+            for i in message:  # Not using our normalized message because capitalization matters.
+                if i.lower().startswith('seed='):
+                    seed = i.split('=')[1]
+                if i.lower().startswith('tl='):
+                    num = i.split('=')[1]
+                    if int(num) not in [0, 1, 2, 3, 4, 5]:
+                        error_embed.add_field(name="Invalid Tech Level specified",
+                                              value=f"You passed tl={num}. Must be a number between 0 and 5, inclusive.",
+                                              inline=False)
+                        error_in_message = True
+                    else:
+                        tl = int(num)
+
+            random.seed(seed)
+            if tl is None:
+                # Setting tech level since it hasn't been specified
+                tl = random.randint(0,5)
+
+            if error_in_message:
+                await ctx.channel.send(embed=error_embed)
+            else:
+                trade_planet = TradePlanet(tl)
+                goods_table = []
+                tab_table = []
+                for good in trade_planet.goods:
+                    tag_string = ""
+                    for item in good.tags:
+                        tag_string += " " + item + ","
+                    goods_table.append(str(good.name +" - " + tag_string[:-1] + " - "+ str(good.price)))
+                    tab_table.append(["---" +str(good.name) + "---\n" + tag_string[:-1] + "\n", good.price]) # \u200b Zero Width Space
+                good_string = ""
+                for good in goods_table:
+                    good_string += good + "\n"
+
+                tabulated = tabulate(tab_table, headers=["Name", "Price"], tablefmt='plain')
+
+                troubles = ""
+                counter = 1
+                for trouble in trade_planet.troubles:
+                    troubles += str(counter) + " - " + trouble + "\n"
+                    counter += 1
+
+
+                trade_embed = discord.Embed(title="Random Suns of Gold Trade Table", color=self.client.embed_color)
+                trade_embed.add_field(name="Seed", value=seed)
+                trade_embed.add_field(name="Tech Level", value=tl)
+                trade_embed.add_field(name="Planetary Modifiers", value=trade_planet.ptags[:-1])
+                trade_embed.add_field(name="Goods", value=("```"+ tabulated + "```"), inline=False)
+                trade_embed.add_field(name=f"Troubles ({trade_planet.trouble_chance} in 10 chance)", value=troubles)
+                await ctx.channel.send(embed=trade_embed)
+
+
+
+
+
+
 
 
 
