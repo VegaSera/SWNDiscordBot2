@@ -50,6 +50,14 @@ class Character:
         else:
             self.skills.append('Any Skill')
 
+        # Adding psychic skills
+        if 'Psychic' in self.char_class:
+            psy_skills = ['Biopsionics', 'Metapsionics', 'Precognition', 'Telekinesis', 'Telepathy', 'Teleportation']
+            self.skills.append(random.choice(psy_skills))
+            if 'Warrior' not in self.char_class and 'Expert' not in self.char_class and 'Adventurer' not in self.char_class:
+                #Pure Psychic gets an extra psychic skill.
+                self.skills.append(random.choice(psy_skills))
+
         # Growth and Learning
         self.skills = self.growth_learning()
 

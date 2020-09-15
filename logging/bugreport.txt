@@ -64,3 +64,19 @@ Bug Report created at 2020-08-16 04:32:49.431000
  -- Status: NEW
  -- Developer Comments: [] 
 
+Bug Report created at 2020-09-07 22:14:03.115000
+ -- Author: Cubicle Dexter#3287
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Plagues broke the bot again.
+ -- Status: NEW
+ -- Developer Comments: [] 
+
+Bug Report created at 2020-09-15 02:11:43.670000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport "!rollcharacter seed=delimiters" rolls a psychic with no psychic skills, raw skill list shows an empty string.
+ -- Status: NEW
+ -- Developer Comments: [] 
+
