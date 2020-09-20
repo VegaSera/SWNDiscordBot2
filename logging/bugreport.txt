@@ -53,7 +53,7 @@ Bug Report created at 2020-07-22 18:48:22.542000
  -- Guild: Stars Without Number Community Server
  -- Channel: bot-commands
  -- Bug: !bugreport !rollcharacter seed=functional produces a psychic with less psychic skills than expected.
- -- Status: NEW
+ -- Status: RESOLVED
  -- Developer Comments: [] 
 
 Bug Report created at 2020-08-16 04:32:49.431000
@@ -61,22 +61,21 @@ Bug Report created at 2020-08-16 04:32:49.431000
  -- Guild: Stars Without Number Community Server
  -- Channel: bot-commands
  -- Bug: !bugreport Anti-plagues defensive measures are down. Solve immediately. This is a matter of national security.
- -- Status: NEW
- -- Developer Comments: [] 
-
-Bug Report created at 2020-09-07 22:14:03.115000
- -- Author: Cubicle Dexter#3287
- -- Guild: Stars Without Number Community Server
- -- Channel: bot-commands
- -- Bug: !bugreport Plagues broke the bot again.
- -- Status: NEW
- -- Developer Comments: [] 
+ -- Status: RESOLVED
+ -- Developer Comments: []
 
 Bug Report created at 2020-09-15 02:11:43.670000
  -- Author: Vega Sera#1269
  -- Guild: Stars Without Number Community Server
  -- Channel: bot-commands
  -- Bug: !bugreport "!rollcharacter seed=delimiters" rolls a psychic with no psychic skills, raw skill list shows an empty string.
- -- Status: NEW
- -- Developer Comments: [] 
+ -- Status: RESOLVED
+ -- Developer Comments: [Some dumb developer forgot to give the psychics psychic skills. Resolved it.]
 
+Bug Report created at 2020-09-20 02:32:35.379000
+ -- Author: Cubicle Dexter#3287
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport Why don't you just link the post? https://discordapp.com/channels/351180092442935296/351217475871834116/402922543314632706
+ -- Status: RESOLVED
+ -- Developer Comments: [Modified the Megajim command to include the link]

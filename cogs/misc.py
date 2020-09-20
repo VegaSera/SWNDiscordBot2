@@ -43,11 +43,10 @@ class Misc(commands.Cog):
         """`{prefix}megajim` - Gives an easy way to search for the Ballad of Mega Jim"""
         embed = discord.Embed(title="The Ballad of Mega Jim",
                               color=self.client.embed_color,
-                              description='If you want to read the Ballad of Mega Jim, copy and paste this into '
-                                          'the Discord Search Bar:')
+                              description='If you want to read the Ballad of Mega Jim:')
         embed.add_field(
-            name='`during: 2018-01-16 hydraulic`',
-            value=' \nThe search phrase does not have to make sense, but rest assured it will lead you there.\n ')
+            name='`Link to the Ballad of Megajim:`',
+            value=' \nhttps://discordapp.com/channels/351180092442935296/351217475871834116/402922543314632706\n ')
         embed.set_footer(text='Keep in mind this only works on the Stars Without Number community Discord.')
 
         await ctx.channel.send(embed=embed)
