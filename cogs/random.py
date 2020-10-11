@@ -161,15 +161,20 @@ class Random(commands.Cog):
         sent_help_message = False
         if len(message) > 0:  # Message is not empty.
             if message[0].lower() == "help":
-                print("INVOKED ROLLPLANET HELP")
                 embed = discord.Embed(title=f"{self.client.command_prefix}rollplanet Help",
                                       color=self.client.embed_color,
                                       description="Generates a random planet via the rules as written on page 130")
+                x = self.client.command_prefix
+                embed.add_field(name="Command Modifiers",
+                                 value=f"`{x}rollplanet` - Generates a random planet via the RAW.\n"
+                                       f"`{x}rollplanet seed=XXXX` - Generates a specific random planet with a specified seed.\n"
+                                       f"`{x}rollplanet tags=2` - Planet is generated with 2 world tags. Can be any number between 1 and 9."
+                                 , inline=False)
                 await ctx.channel.send(embed=embed)
                 sent_help_message = True
 
         if not sent_help_message:  # If a help message gets sent, we dont want to generate anything.
-
+            footer_error = None
             # Setting our seed
             seed = ToolUtil.random_seed_setter()
             for i in message:  # Not using our normalized message because capitalization matters.
@@ -177,12 +182,28 @@ class Random(commands.Cog):
                     seed = i.split('=')[1]
             random.seed(seed)
 
+            tags = 3
+            for i in message:
+                if i.lower().startswith('tags='):
+                    tagnum = i.split('=')[1]
+                    try:
+                        if 0 < int(tagnum) < 10:
+                            tags = int(tagnum)
+                        else:
+                            #Tagnum is negative or too big.
+                            footer_error = f"{tagnum} is an invalid number of tags. Must be between 1 and 9. Defaulted to 3."
+                    except:
+                        #tagnum is not an int.
+                        footer_error = f"{tagnum} is an invalid entry for number of tags. Defaulted to 3."
+
 
             #TODO Generate different type of planet that makes more sense.
-            new_planet = Raw_Planet(num_tags=3)
+            new_planet = Raw_Planet(num_tags=tags)
 
 
             embed = discord.Embed(title="Random Planet", color=self.client.embed_color)
+            if footer_error is not None:
+                embed.add_field(name="ERROR", value=footer_error, inline=False)
             embed.add_field(name="Planet Name", value=ToolUtil.random_namer(2,4), inline=False)
             embed.add_field(name="Seed", value=seed, inline=False)
             embed.add_field(name="Atmosphere", value=new_planet.atmo)
@@ -191,6 +212,7 @@ class Random(commands.Cog):
             embed.add_field(name="Population", value=new_planet.pop)
             embed.add_field(name="Tech Level", value=new_planet.tl)
             embed.add_field(name="World Tags", value=new_planet.world_tags, inline=False)
+
 
             await ctx.channel.send(embed=embed)
 
