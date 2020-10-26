@@ -79,3 +79,12 @@ Bug Report created at 2020-09-20 02:32:35.379000
  -- Bug: !bugreport Why don't you just link the post? https://discordapp.com/channels/351180092442935296/351217475871834116/402922543314632706
  -- Status: RESOLVED
  -- Developer Comments: [Modified the Megajim command to include the link]
+
+Bug Report created at 2020-10-26 04:53:37.228000
+ -- Author: Vega Sera#1269
+ -- Guild: Stars Without Number Community Server
+ -- Channel: bot-commands
+ -- Bug: !bugreport rollplanet failed, line 31 got a keyerror 101 when only 100 should be possible.
+ -- Status: RESOLVED
+ -- Developer Comments: [Modified generated tags to never produce 101 again.]
+

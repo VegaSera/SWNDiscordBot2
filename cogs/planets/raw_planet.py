@@ -1,7 +1,11 @@
-import cogs.utils.ToolUtils as ut
-import random
-import cogs.planets.planet_tables as tables
+"""
+raw_planet
+Generates a planet based on the rules as written with no special weighting.
+"""
 
+import random
+import cogs.utils.ToolUtils as ut
+import cogs.planets.planet_tables as tables
 
 
 class Raw_Planet():
@@ -19,19 +23,34 @@ class Raw_Planet():
         self.tl = self.tech_level()
 
     def world_tags_gen(self, num_tags):
+        """
+        Generates the world tags indexes to be used by the string later.
+        :param num_tags: Specified number of tags to generate. Should be between 1 and 9
+        :return: Sorted list of unique world tags
+        """
         if 0 < num_tags < 10:
             tags = []
             while len(set(tags)) < num_tags:
-                tags.append(random.randint(1, len(tables.PlanetTagTable) + 1))
+                tags.append(random.randint(1, len(tables.PlanetTagTable)))
             return sorted(list(set(tags)))
+        raise Exception(f"Raw_Planet.world_tags_gen attempted to generate a strange number of "
+                        f"tags: {num_tags}")
 
     def world_tag_string(self):
+        """
+        Generates the world tags from the list of indeces in self.world_tag_ids.
+        :return: String
+        """
         return_string = ""
         for tag in self.world_tag_ids:
             return_string += f"{tables.PlanetTagTable[tag][0]}, "
         return return_string[:-2]
 
     def atmosphere(self):
+        """
+        Generates an atmosphere type based on a 2d6 roll. Original table on page XX of SWN:R.
+        :return: String
+        """
         num = ut.diceroller(2, 6)
         atmotable = {2: "Corrosive",
                      3: "Inert Gas",
@@ -47,6 +66,10 @@ class Raw_Planet():
         return atmotable[num]
 
     def temperature(self):
+        """
+        Generates a temperature string based on a 2d6 roll. Original table on page XX of SWN:R.
+        :return: String
+        """
         num = ut.diceroller(2, 6)
         temptable = {2: "Frozen",
                      3: "Cold",
@@ -62,6 +85,10 @@ class Raw_Planet():
         return temptable[num]
 
     def biosphere(self):
+        """
+        Generates a biosphere string based on a 2d6 roll. Original table on page XX of SWN:R.
+        :return: String
+        """
         num = ut.diceroller(2, 6)
         biotable = {2: "Remnant",
                     3: "Microbial",
@@ -77,6 +104,10 @@ class Raw_Planet():
         return biotable[num]
 
     def population(self):
+        """
+        Generates a population string based on a 2d6 roll. Original table on page XX of SWN:R.
+        :return: String
+        """
         num = ut.diceroller(2, 6)
         poptable = {2: "Failed Colony",
                     3: "Outpost",
@@ -92,6 +123,10 @@ class Raw_Planet():
         return poptable[num]
 
     def tech_level(self):
+        """
+        Generates a tech level string based on a 2d6 roll. Original table on page XX of SWN:R.
+        :return: String
+        """
         num = ut.diceroller(2, 6)
         tltable = {2: "TL0 - Stone Age Tech",
                    3: "TL1 - Medieval Tech",
